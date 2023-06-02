@@ -1,0 +1,79 @@
+package com.jpa.crud.service;
+
+import com.jpa.crud.domain.Board;
+import com.jpa.crud.dto.BoardCommentDto;
+import com.jpa.crud.dto.BoardDto;
+import com.jpa.crud.repository.BoardRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class BoardService {
+
+    private  final BoardRepository boardRepository;
+
+
+    public Board save(BoardDto  boardDto){
+
+        Board board = new Board(boardDto);
+
+
+       return boardRepository.save(board);
+    }
+
+    public List<Board> findAll(){
+
+        return boardRepository.findAll();
+    }
+
+
+    public Optional<Board> findOne(Long id){
+
+        return  boardRepository.findById(id);
+
+    }
+
+    //수정
+    public Board update(Long id , BoardDto boardDto) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow( () -> new IllegalArgumentException("not find board"));
+        log.info("findBoard={}",boardDto);
+        board.setTitle(boardDto.getTitle());
+        board.setContents(boardDto.getContents());
+
+       return  boardRepository.save(board);
+
+    }
+
+    public void delete (Long id){
+
+        boardRepository.deleteById(id);
+
+    }
+
+    public List<BoardCommentDto> findBoardComment(){
+        log.info("BaordService");
+
+        return boardRepository.findBoardComment();
+
+    }
+
+
+
+
+    public List<BoardDto> findAllBoard(){
+        log.info("===========service================");
+        List<BoardDto> allBoard = boardRepository.findAllBoard();
+        log.info("allBoard={}" , allBoard);
+
+
+        return allBoard;
+    }
+}
