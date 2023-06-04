@@ -28,7 +28,6 @@ public class Comment {
     public Comment(CommentDto commentDto){
         this.content = commentDto.getContent();
         this.dateTime = commentDto.getLocalDateTime();
-        this.board = commentDto.getBoard();
 
     }
 

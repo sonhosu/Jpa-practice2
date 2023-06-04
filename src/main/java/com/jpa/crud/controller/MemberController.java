@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequiredArgsConstructor
 public class MemberController {
 
-    private Memberservice memberservice;
+    private final Memberservice  memberservice;
 
     @ResponseBody
     @PostMapping("/member")
-    public MemberDto createMember(@RequestBody Member member){
+    public MemberDto createMember(@RequestBody MemberDto memberDto){
 
-        log.info("member={}",member);
-        MemberDto memberDto = memberservice.createMember(member);
-        return memberDto;
+        log.info("memberDto={}",memberDto);
+        MemberDto member = memberservice.createMember(memberDto);
+
+        return member;
 
 
     }

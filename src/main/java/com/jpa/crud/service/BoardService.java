@@ -1,6 +1,7 @@
 package com.jpa.crud.service;
 
 import com.jpa.crud.domain.Board;
+import com.jpa.crud.dto.BoardAndCommentDto;
 import com.jpa.crud.dto.BoardCommentDto;
 import com.jpa.crud.dto.BoardDto;
 import com.jpa.crud.repository.BoardRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -58,10 +60,14 @@ public class BoardService {
 
     }
 
-    public List<BoardCommentDto> findBoardComment(){
+    public List<BoardAndCommentDto> findBoardComment(){
         log.info("BaordService");
 
-        return boardRepository.findBoardComment();
+        //return boardRepository.findBoardComment();
+        List<BoardAndCommentDto> collect = boardRepository.findBoardAndComment().stream()
+                .map(BoardAndCommentDto::new)
+                .collect(Collectors.toList());
+        return collect;
 
     }
 
