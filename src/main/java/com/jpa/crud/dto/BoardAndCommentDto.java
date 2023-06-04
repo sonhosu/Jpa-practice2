@@ -13,6 +13,8 @@ public class BoardAndCommentDto {
 
     private Long id;
 
+    //werwerwer
+
     private String title;
 
     private String contents;
