@@ -33,19 +33,22 @@ public class CustomBoardRepositoryImpl implements CustomBoardRepository{
         sql.append("on b.id = c.id");
        // Query query = em.createQuery("select b.id ,b.title ,b.contents ,c.content from Board b left join Comment c on b.id = c.id");
 
-        List<Object[]> resultList = em.createQuery(sql.toString(), Object[].class)
+        List<BoardCommentDto> resultList = em.createQuery(sql.toString(), BoardCommentDto.class)
                 .getResultList();
         log.info("resultList={}",resultList.size());
+        for (BoardCommentDto boardCommentDto : resultList) {
 
-        for (Object[] row : resultList){
-            BoardCommentDto boardCommentDto = new BoardCommentDto();
-            boardCommentDto.setTitle((String)row[0]);
-            boardCommentDto.setCContent((String)row[1]);
-            boardCommentDto.setBContent((String)row[2]);
-
-
-            boardCommentDtoList.add(boardCommentDto);
         }
+
+//        for (Object[] row : resultList){
+//            BoardCommentDto boardCommentDto = new BoardCommentDto();
+//            boardCommentDto.setTitle((String)row[0]);
+//            boardCommentDto.setCContent((String)row[1]);
+//            boardCommentDto.setBContent((String)row[2]);
+//
+//
+//            boardCommentDtoList.add(boardCommentDto);
+//        }
 
        /* return resultList.stream().map(
                 board -> new BoardCommentDto(
@@ -56,7 +59,7 @@ public class CustomBoardRepositoryImpl implements CustomBoardRepository{
                 )
         ).collect(Collectors.toList());*/
 
-        return boardCommentDtoList;
+        return resultList;
     }
 
     @Override

@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.websocket.server.ServerEndpoint;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -28,6 +29,9 @@ public class Board {
     private LocalDateTime dateTime;
 
     private LocalDateTime updateTime;
+
+    @OneToMany(mappedBy = "board")
+    private List<Comment> comment = new ArrayList<>();
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

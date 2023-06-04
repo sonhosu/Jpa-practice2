@@ -2,6 +2,7 @@ package com.jpa.crud.controller;
 
 
 import com.jpa.crud.domain.Board;
+import com.jpa.crud.dto.BoardAndCommentDto;
 import com.jpa.crud.dto.BoardCommentDto;
 import com.jpa.crud.dto.BoardDto;
 import com.jpa.crud.service.BoardService;
@@ -86,9 +87,9 @@ public class BoardController {
 
     @ResponseBody
     @GetMapping("/boardComments")
-    public List<BoardCommentDto> findAllBoardComment(){
+    public List<BoardAndCommentDto> findAllBoardComment(){
         log.info("BoardController");
-        List<BoardCommentDto> boardComment = boardService.findBoardComment();
+        List<BoardAndCommentDto> boardComment = boardService.findBoardComment();
 
         return boardComment;
     }

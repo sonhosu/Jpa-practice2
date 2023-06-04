@@ -1,6 +1,7 @@
 package com.jpa.crud.domain;
 
 import com.jpa.crud.dto.MemberDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +27,12 @@ public class Member {
         this.id= memberDto.getId();
         this.username = memberDto.getUsername();
         this.dateTime = memberDto.getDateTime();
+    }
+
+    @Builder
+    public Member(String username, LocalDateTime dateTime) {
+        this.username = username;
+        this.dateTime = dateTime;
     }
 
     public Member() {

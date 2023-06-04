@@ -12,16 +12,15 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class Memberservice {
 
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
 
-    public MemberDto createMember(Member member){
-        log.info("member={}",member);
+    public MemberDto createMember(MemberDto memberDto){
+        log.info("memberDto={}",memberDto);
 
-        Member saveMember = memberRepository.save(member);
-        MemberDto memberDto = new MemberDto(saveMember);
+        Member member = memberRepository.save(memberDto.toEntity());
 
-        return memberDto;
+        return new MemberDto(member);
 
 
 

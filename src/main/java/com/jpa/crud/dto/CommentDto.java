@@ -21,12 +21,10 @@ public class CommentDto {
 
     private LocalDateTime localDateTime;
 
-    private Board board;
 
     public CommentDto(Comment comment) {
         this.id = comment.getId();
         this.content = comment.getContent();
         this.localDateTime = LocalDateTime.now();
-        this.board = comment.getBoard();
     }
 }

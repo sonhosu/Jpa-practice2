@@ -2,10 +2,10 @@ spring:
   datasource:
 #   url: jdbc:h2:tcp://localhost/~/crud
 #  driver-class-name: org.h2.Driver
-    username: admin
-    password: gongsacokaurora
+    username: root
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://aurora.gongsacok.com:3306/gongsacokaurora?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/jpa?serverTimezone=Asia/Seoul
 
   jpa:
     hibernate:
