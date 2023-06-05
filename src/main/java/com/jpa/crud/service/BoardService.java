@@ -2,7 +2,6 @@ package com.jpa.crud.service;
 
 import com.jpa.crud.domain.Board;
 import com.jpa.crud.dto.BoardAndCommentDto;
-import com.jpa.crud.dto.BoardCommentDto;
 import com.jpa.crud.dto.BoardDto;
 import com.jpa.crud.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -60,21 +59,25 @@ public class BoardService {
 
     }
 
-    public List<BoardAndCommentDto> findBoardComment(){
-        log.info("BaordService");
 
-        //return boardRepository.findBoardComment();
+    // 게시판 댓글 전체조회
+    public List<BoardAndCommentDto> findBoardComment(){
+        log.info("BoardService");
+
+
         List<BoardAndCommentDto> collect = boardRepository.findBoardAndComment().stream()
                 .map(BoardAndCommentDto::new)
                 .collect(Collectors.toList());
+        
+        
         return collect;
+
 
     }
 
 
-
-
     public List<BoardDto> findAllBoard(){
+
         log.info("===========service================");
         List<BoardDto> allBoard = boardRepository.findAllBoard();
         log.info("allBoard={}" , allBoard);

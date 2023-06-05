@@ -94,13 +94,5 @@ public class BoardController {
         return boardComment;
     }
 
-    @ResponseBody
-    @GetMapping("/boardss")
-    public List<BoardDto> findAllBoard(){
-        log.info("=====================");
-        List<BoardDto> boardList = boardService.findAllBoard();
-
-        return boardList;
-    }
 
 }
