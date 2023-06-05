@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MemberController {
 
     private final Memberservice  memberservice;
-
+//test
     @ResponseBody
     @PostMapping("/member")
     public MemberDto createMember(@RequestBody MemberDto memberDto){
