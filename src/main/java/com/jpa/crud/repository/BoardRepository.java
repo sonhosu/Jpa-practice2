@@ -19,6 +19,18 @@ public interface BoardRepository extends JpaRepository<Board,Long>, CustomBoardR
     @Query("select distinct b from Board b left join Comment c on c.board.id = b.id")
     List<Board> findBoardAndComment();
 
+    @Query(value = "SELECT distinct b.board_id " +
+                        ", b.title" +
+                         ",b.contents," +
+                         " b.date_time," +
+                          "b.update_time," +
+                          "b.user_id , " +
+                          "c.content " +
+                   "FROM Board b " +
+                   "LEFT JOIN Comment c on b.board_id = c.board_id"
+            ,nativeQuery = true)
+    List<Board> findBoardAndComment2();
+
 
 
 }

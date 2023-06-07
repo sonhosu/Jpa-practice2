@@ -45,12 +45,5 @@ public class Board {
         this.user = boardDto.getUser();
     }
 
-    public Board(Long id ,String title, String contents){
-
-        this.id =id;
-        this.title =title;
-        this.contents =contents;
-    }
-
 
 }
