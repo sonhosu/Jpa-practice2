@@ -1,6 +1,7 @@
 package com.jpa.crud.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jpa.crud.dto.BoardDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class Board {
 
     private LocalDateTime updateTime;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "board")
     private List<Comment> comment = new ArrayList<>();
 
@@ -39,11 +41,11 @@ public class Board {
 
 
     public Board(BoardDto boardDto) {
+        this.id = boardDto.getId();
         this.title = boardDto.getTitle();
         this.contents = boardDto.getContents();
         this.dateTime = LocalDateTime.now();
         this.user = boardDto.getUser();
     }
-
 
 }

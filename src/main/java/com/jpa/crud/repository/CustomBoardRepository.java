@@ -14,8 +14,6 @@ public interface CustomBoardRepository {
     public List<BoardCommentDto> findBoardComment();
 
 
-
-
     public List<BoardDto> findAllBoard();
 
 

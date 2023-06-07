@@ -14,7 +14,7 @@ public class BoardAndCommentDto {
 
     private Long id;
 
-    //werwerwer
+    //werwerwerwerwerwer
 
     private String title;
 

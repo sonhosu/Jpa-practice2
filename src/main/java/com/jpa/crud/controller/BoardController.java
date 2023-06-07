@@ -94,6 +94,7 @@ public class BoardController {
         return boardComment;
     }
 
+
     @ResponseBody
     @GetMapping("/boardComments2")
     public List<BoardAndCommentDto> findAllBoardComment2(){
@@ -113,5 +114,6 @@ public class BoardController {
 
         return boardList;
     }
+
 
 }
