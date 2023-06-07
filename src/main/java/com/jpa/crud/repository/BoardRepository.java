@@ -16,7 +16,7 @@ public interface BoardRepository extends JpaRepository<Board,Long>, CustomBoardR
     value = "select * from Board")
     List<BoardDto> findAllBoard2();
 
-    @Query("select distinct b from Board b left join Comment c on c.board.id = b.id")
+    @Query( "select distinct b from Board b left join Comment c on c.board.id = b.id")
     List<Board> findBoardAndComment();
 
     @Query(value = "SELECT distinct b.board_id " +
