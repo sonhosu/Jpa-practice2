@@ -18,7 +18,5 @@ public class BoardDto {
 
     private LocalDateTime datetime;
 
-    private LocalDateTime updateTime;
-
     private Member user;
 }

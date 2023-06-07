@@ -30,9 +30,7 @@ public class CommentDto {
     public CommentDto(Comment comment) {
         this.id = comment.getId();
         this.content = comment.getContent();
-        this.localDateTime = LocalDateTime.now();
-        this.board = comment.getBoard();
-        this.updateTime = LocalDateTime.now();
+        this.localDateTime = comment.getDateTime();
     }
 
 }

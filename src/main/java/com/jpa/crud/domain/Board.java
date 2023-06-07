@@ -48,6 +48,4 @@ public class Board {
         this.user = boardDto.getUser();
     }
 
-
-
 }

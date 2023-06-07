@@ -60,7 +60,9 @@ public class BoardService {
     }
 
 
+    //JPQL 쿼리 사용
     // 게시판 댓글 전체조회
+
     public List<BoardAndCommentDto> findBoardComment(){
         log.info("BoardService");
 
@@ -71,6 +73,22 @@ public class BoardService {
         
         
         return collect;
+
+
+    }
+
+    // Native 쿼리 사용
+    public List<BoardAndCommentDto> findBoardComment2(){
+        log.info("BaordService");
+
+        //return boardRepository.findBoardComment();
+        List<BoardAndCommentDto> collect = boardRepository.findBoardAndComment2().stream()
+                .map(BoardAndCommentDto::new)
+                .collect(Collectors.toList());
+        return collect;
+
+    }
+
 
 
     }
