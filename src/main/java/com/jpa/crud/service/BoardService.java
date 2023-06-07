@@ -88,8 +88,6 @@ public class BoardService {
         return collect;
 
     }
-    //test1
-
 
 
     public List<BoardDto> findAllBoard(){
