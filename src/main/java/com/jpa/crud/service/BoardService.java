@@ -77,7 +77,7 @@ public class BoardService {
 
     }
 
-    // Native 쿼리 사용
+    // Native 쿼리 사용 test
     public List<BoardAndCommentDto> findBoardComment2(){
         log.info("BaordService");
 
