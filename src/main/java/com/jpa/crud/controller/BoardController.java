@@ -26,7 +26,7 @@ public class BoardController {
     HttpHeaders headers = new HttpHeaders();
     //글 목록
     @ResponseBody
-    @GetMapping("/boards")
+    @GetMapping("/api/v1/user/boards")
     public ResponseEntity<List<Board>> board(){
         List<Board> boardList = boardService.findAll();
 
@@ -40,7 +40,7 @@ public class BoardController {
 
     //글 상세
     @ResponseBody
-    @GetMapping("/board/detail/{boardId}")
+    @GetMapping("/api/v1/user/board/detail/{boardId}")
     public Optional<Board> boardDetail(@PathVariable Long boardId , Model model){
         log.info("boardId={}" , boardId);
 
@@ -50,7 +50,7 @@ public class BoardController {
 
     // 글생성
     @ResponseBody
-    @PostMapping("/board/write")
+    @PostMapping("/api/v1/user/board/write")
     public ResponseEntity<Board> boardWrite(@RequestBody BoardDto boardDto){
         log.info("BoardDto={}" , boardDto);
 
@@ -66,7 +66,7 @@ public class BoardController {
 
     // 수정
     @ResponseBody
-    @PostMapping("/board/update/{boardId}")
+    @PostMapping("/api/v1/user/board/update/{boardId}")
     public Board boardUpdate(@PathVariable Long boardId , @RequestBody BoardDto boardDto){
         log.info("BoardDto={}" , boardDto);
 
@@ -77,7 +77,7 @@ public class BoardController {
 
     //삭제
     @ResponseBody
-    @DeleteMapping("/board/delete/{boardId}")
+    @DeleteMapping("/api/v1/user/board/delete/{boardId}")
     public void boardDelete(@PathVariable Long boardId){
         log.info("boardId={}",boardId);
 

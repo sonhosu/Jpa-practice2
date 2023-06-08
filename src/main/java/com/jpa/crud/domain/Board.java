@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.websocket.server.ServerEndpoint;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +25,9 @@ public class Board {
     private String title;
     @Column
     private String contents;
+
+    @Column
+    private String username;
     @Column
     private LocalDateTime dateTime;
 
@@ -37,15 +39,17 @@ public class Board {
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private Member user;
+    private User user;
 
 
     public Board(BoardDto boardDto) {
         this.id = boardDto.getId();
         this.title = boardDto.getTitle();
+        this.username = boardDto.getUsername();
         this.contents = boardDto.getContents();
         this.dateTime = LocalDateTime.now();
         this.user = boardDto.getUser();
+
     }
 
 }
