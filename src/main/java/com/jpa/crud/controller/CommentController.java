@@ -19,7 +19,7 @@ public class CommentController {
 
     //댓글 생성
 
-    @PostMapping("/board/{boardId}/comment/write")
+    @PostMapping("/api/v1/user/board/{boardId}/comment/write")
     public CommentDto create(@RequestBody CommentDto inCommentDto , @PathVariable Long boardId){
         log.info("commentDto={}" , inCommentDto ,"boardId={}" ,boardId);
 
@@ -31,7 +31,7 @@ public class CommentController {
 
 
     // 댓글 수정
-    @PutMapping("/comment/{commentId}/update")
+    @PutMapping("/api/v1/user/comment/{commentId}/update")
     public ResponseEntity<CommentDto> update (@RequestBody CommentDto commentDto , @PathVariable Long commentId){
         CommentDto update = commentService.update(commentDto, commentId);
 
@@ -41,7 +41,7 @@ public class CommentController {
 
     // 댓글 삭제
 
-    @DeleteMapping("/comment/{commentId}/delete")
+    @DeleteMapping("/api/v1/user/comment/{commentId}/delete")
     public ResponseEntity<CommentDto> delete (@PathVariable Long commentId , @RequestBody CommentDto commentDto){
         commentService.delete(commentId);
 

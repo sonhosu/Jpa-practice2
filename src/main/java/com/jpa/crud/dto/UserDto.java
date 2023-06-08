@@ -1,6 +1,6 @@
 package com.jpa.crud.dto;
 
-import com.jpa.crud.domain.Member;
+import com.jpa.crud.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,19 +9,23 @@ import java.time.LocalDateTime;
 
 @Getter@Setter
 @NoArgsConstructor
-public class MemberDto {
+public class UserDto {
     private Long id;
     private String username;
+    private String password;
+    private String token;
     private LocalDateTime dateTime;
+    private String roles; // USER ,ADMIN
+    private String jwt;
 
-    public MemberDto(Member member) {
-        this.id = member.getId();
-        this.username=member.getUsername();
+    public UserDto(User user) {
+        this.id = user.getId();
+        this.username= user.getUsername();
         this.dateTime = LocalDateTime.now();
     }
 
-    public Member toEntity (){
-        return Member.builder()
+    public User toEntity (){
+        return User.builder()
                 .username(username)
                 .dateTime(LocalDateTime.now())
                 .build();
