@@ -1,6 +1,6 @@
 package com.jpa.crud.dto;
 
-import com.jpa.crud.domain.Member;
+import com.jpa.crud.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,5 +18,7 @@ public class BoardDto {
 
     private LocalDateTime datetime;
 
-    private Member user;
+    private String username;
+
+    private User user;
 }

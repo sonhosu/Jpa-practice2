@@ -36,9 +36,7 @@ public class CustomBoardRepositoryImpl implements CustomBoardRepository{
         List<BoardCommentDto> resultList = em.createQuery(sql.toString(), BoardCommentDto.class)
                 .getResultList();
         log.info("resultList={}",resultList.size());
-        for (BoardCommentDto boardCommentDto : resultList) {
 
-        }
 
 //        for (Object[] row : resultList){
 //            BoardCommentDto boardCommentDto = new BoardCommentDto();
@@ -50,16 +48,9 @@ public class CustomBoardRepositoryImpl implements CustomBoardRepository{
 //            boardCommentDtoList.add(boardCommentDto);
 //        }
 
-       /* return resultList.stream().map(
-                board -> new BoardCommentDto(
-                        (String)board[0],
-                        (String)board[1],
-                        (String)board[2]
-
-                )
-        ).collect(Collectors.toList());*/
-
         return resultList;
+
+
     }
 
     @Override
