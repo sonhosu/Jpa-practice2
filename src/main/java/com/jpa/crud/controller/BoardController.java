@@ -38,7 +38,7 @@ public class BoardController {
                 .body(boardList);
     }
 
-    //글 상세
+    //글 상세1
     @ResponseBody
     @GetMapping("/api/v1/user/board/detail/{boardId}")
     public Optional<Board> boardDetail(@PathVariable Long boardId , Model model){
