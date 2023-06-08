@@ -1,11 +1,18 @@
 package com.jpa.crud.service;
 
+import com.jpa.crud.auth.PrincipalDetails;
 import com.jpa.crud.domain.Board;
+import com.jpa.crud.domain.User;
 import com.jpa.crud.dto.BoardAndCommentDto;
+import com.jpa.crud.dto.BoardCommentDto;
 import com.jpa.crud.dto.BoardDto;
 import com.jpa.crud.repository.BoardRepository;
+import com.jpa.crud.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,12 +26,17 @@ import java.util.stream.Collectors;
 public class BoardService {
 
     private  final BoardRepository boardRepository;
+    private  final UserRepository userRepository;
     //test121
 
     public Board save(BoardDto  boardDto){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails)principal;
+        String username = userDetails.getUsername();
 
+        boardDto.setUsername(username);
         Board board = new Board(boardDto);
-
+    
 
        return boardRepository.save(board);
     }
@@ -70,8 +82,8 @@ public class BoardService {
         List<BoardAndCommentDto> collect = boardRepository.findBoardAndComment().stream()
                 .map(BoardAndCommentDto::new)
                 .collect(Collectors.toList());
-        
-        
+
+
         return collect;
 
 
