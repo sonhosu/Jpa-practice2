@@ -1,10 +1,7 @@
 package com.jpa.crud.domain;
 
 import com.jpa.crud.dto.CommentDto;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,6 +10,8 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 
 public class Comment {
 
@@ -36,7 +35,7 @@ public class Comment {
     public Comment(CommentDto commentDto){
         this.id = commentDto.getId();
         this.content = commentDto.getContent();
-        this.dateTime = commentDto.getLocalDateTime();
+        this.dateTime = commentDto.getWriteTime();
         this.board = commentDto.getBoard();
         this.updateTime = commentDto.getUpdateTime();
     }
