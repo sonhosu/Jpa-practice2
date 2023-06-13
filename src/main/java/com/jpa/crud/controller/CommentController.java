@@ -1,6 +1,5 @@
 package com.jpa.crud.controller;
 
-import com.jpa.crud.domain.Comment;
 import com.jpa.crud.dto.CommentDto;
 import com.jpa.crud.service.CommentService;
 import lombok.RequiredArgsConstructor;
