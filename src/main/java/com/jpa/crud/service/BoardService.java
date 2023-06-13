@@ -1,23 +1,16 @@
 package com.jpa.crud.service;
 
-import com.jpa.crud.auth.PrincipalDetails;
 import com.jpa.crud.domain.Board;
-import com.jpa.crud.domain.User;
 import com.jpa.crud.dto.BoardAndCommentDto;
-import com.jpa.crud.dto.BoardCommentDto;
 import com.jpa.crud.dto.BoardDto;
 import com.jpa.crud.repository.BoardRepository;
 import com.jpa.crud.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -29,16 +22,25 @@ public class BoardService {
     private  final UserRepository userRepository;
     //test121
 
-    public Board save(BoardDto  boardDto){
+    public BoardDto save(BoardDto  boardDto){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserDetails userDetails = (UserDetails)principal;
         String username = userDetails.getUsername();
 
         boardDto.setUsername(username);
         Board board = new Board(boardDto);
-    
 
-       return boardRepository.save(board);
+        Board savedBoard = boardRepository.save(board);
+
+        BoardDto boardDto1 = new BoardDto();
+        boardDto1.setId(savedBoard.getId());
+        boardDto1.setTitle(savedBoard.getTitle());
+        boardDto1.setContents(savedBoard.getContents());
+        boardDto1.setUsername(savedBoard.getUsername());
+        boardDto1.setDatetime(savedBoard.getDateTime());
+
+
+        return boardDto1;
     }
 
     public List<Board> findAll(){
@@ -47,9 +49,18 @@ public class BoardService {
     }
 
 
-    public Optional<Board> findOne(Long id){
+    public BoardDto findOne(Long id){
+        Board board = boardRepository.findById(id).get();
 
-        return  boardRepository.findById(id);
+        BoardDto boardDto = new BoardDto();
+
+        boardDto.setId(board.getId());
+        boardDto.setTitle(board.getTitle());
+        boardDto.setContents(board.getContents());
+        boardDto.setUsername(board.getUsername());
+        boardDto.setDatetime(board.getDateTime());
+
+        return boardDto ;
 
     }
 
@@ -61,7 +72,7 @@ public class BoardService {
         board.setTitle(boardDto.getTitle());
         board.setContents(boardDto.getContents());
 
-       return  boardRepository.save(board);
+        return  boardRepository.save(board);
 
     }
 
