@@ -3,9 +3,7 @@ package com.jpa.crud.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jpa.crud.dto.BoardDto;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,6 +14,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
 public class Board {
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)

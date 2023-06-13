@@ -8,10 +8,7 @@ import com.jpa.crud.repository.BoardRepository;
 import com.jpa.crud.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +24,8 @@ public class CommentService {
         commentDto.setBoard(board);
 
         // Dto -> Entity
+
+
 
         Comment comment = commentRepository.save(new Comment(commentDto));
 

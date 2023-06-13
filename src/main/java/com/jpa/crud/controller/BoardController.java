@@ -3,7 +3,6 @@ package com.jpa.crud.controller;
 
 import com.jpa.crud.domain.Board;
 import com.jpa.crud.dto.BoardAndCommentDto;
-import com.jpa.crud.dto.BoardCommentDto;
 import com.jpa.crud.dto.BoardDto;
 import com.jpa.crud.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -11,11 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -41,26 +38,24 @@ public class BoardController {
     //글 상세1
     @ResponseBody
     @GetMapping("/api/v1/user/board/detail/{boardId}")
-    public Optional<Board> boardDetail(@PathVariable Long boardId , Model model){
+    public BoardDto boardDetail(@PathVariable Long boardId ){
         log.info("boardId={}" , boardId);
-
-        return  boardService.findOne(boardId);
+        BoardDto findOne = boardService.findOne(boardId);
+        return  findOne;
 
     }
 
     // 글생성
     @ResponseBody
     @PostMapping("/api/v1/user/board/write")
-    public ResponseEntity<Board> boardWrite(@RequestBody BoardDto boardDto){
+    public BoardDto boardWrite(@RequestBody BoardDto boardDto){
         log.info("BoardDto={}" , boardDto);
 
-        HttpHeaders headers = new HttpHeaders();
-        Board savedBoard = boardService.save(boardDto);
 
-        log.info("savedBoard={}" , savedBoard);
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(savedBoard);
+       BoardDto boardDto1 = boardService.save(boardDto);
+
+
+        return boardDto1;
 
     }
 
