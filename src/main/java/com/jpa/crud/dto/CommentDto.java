@@ -2,16 +2,16 @@ package com.jpa.crud.dto;
 
 import com.jpa.crud.domain.Board;
 import com.jpa.crud.domain.Comment;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+
 public class CommentDto {
 
 
@@ -19,7 +19,7 @@ public class CommentDto {
 
     private String content;
 
-    private LocalDateTime localDateTime;
+    private LocalDateTime writeTime;
 
     private LocalDateTime updateTime;
 
@@ -27,10 +27,24 @@ public class CommentDto {
 
 
 
+    @Builder
     public CommentDto(Comment comment) {
         this.id = comment.getId();
         this.content = comment.getContent();
-        this.localDateTime = comment.getDateTime();
+        this.writeTime = comment.getDateTime();
+    }
+
+    public Comment toEntity (){
+        return Comment.builder()
+                .content(content)
+                .dateTime(writeTime)
+                .updateTime(updateTime)
+                .board(board)
+                .build();
+
+
+
+
     }
 
 }
