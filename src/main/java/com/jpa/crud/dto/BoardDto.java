@@ -20,6 +20,8 @@ public class BoardDto {
 
     private LocalDateTime datetime;
 
+    private LocalDateTime updateTime;
+
     private String username;
 
     private User user;
@@ -31,6 +33,13 @@ public class BoardDto {
         this.contents = board.getContents();
         this.username = board.getUsername();
         this.id = board.getId();
+    }
+
+    public BoardDto(Long id, String title, String contents) {
+        this.id = id;
+        this.title= title;
+        this.contents = contents;
+
     }
 
     public Board toEntity (){

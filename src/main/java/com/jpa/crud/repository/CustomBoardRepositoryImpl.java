@@ -1,8 +1,8 @@
 package com.jpa.crud.repository;
 
-import com.jpa.crud.domain.Board;
 import com.jpa.crud.dto.BoardCommentDto;
 import com.jpa.crud.dto.BoardDto;
+import com.jpa.crud.dto.SearchDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -57,7 +57,6 @@ public class CustomBoardRepositoryImpl implements CustomBoardRepository{
     public List<BoardDto> findAllBoard() {
         
         StringBuffer sql = new StringBuffer();
-        List<BoardDto> boardDtoList = new ArrayList<>();
 
         sql.append("SELECT b.id , b.title , b.contents ");
         sql.append("FROM Board b ");
@@ -65,7 +64,15 @@ public class CustomBoardRepositoryImpl implements CustomBoardRepository{
         List<Object[]> resultList = em.createQuery(sql.toString(), Object[].class)
                 .getResultList();
 
-        for(Object[] row : resultList){
+        return resultList.stream().map(
+                result -> new BoardDto(
+                        (Long)   result[0],
+                        (String) result[1],
+                        (String) result[2]
+                )
+        ).collect(Collectors.toList());
+
+        /*for(Object[] row : resultList){
             BoardDto boardDto = new BoardDto();
             boardDto.setId((Long)row[0]);
             boardDto.setTitle((String) row[1]);
@@ -80,7 +87,36 @@ public class CustomBoardRepositoryImpl implements CustomBoardRepository{
 
 
 
-        return boardDtoList ;
+        return boardDtoList ;*/
+    }
+
+
+
+    @Override
+    public List<BoardDto> findSearchBoard(SearchDto searchDto) {
+        StringBuffer sql = new StringBuffer();
+
+        sql.append("SELECT b.id , b.title , b.contents ");
+        sql.append("FROM Board b ");
+        sql.append("WHERE 1=1 ");
+
+        if(!searchDto.getTitle().equals("") && searchDto.getTitle() != null){
+
+            sql.append("and b.title like CONCAT('%', :keyword , '%')");
+        }
+
+        TypedQuery<Object[]> query = em.createQuery(sql.toString(), Object[].class);
+        query.setParameter("keyword",searchDto.getTitle());
+
+
+        return query.getResultList().stream().map(
+                result -> new BoardDto(
+                        (Long)   result[0],
+                        (String) result[1],
+                        (String) result[2]
+                )
+        ).collect(Collectors.toList());
+       
     }
 
 }
