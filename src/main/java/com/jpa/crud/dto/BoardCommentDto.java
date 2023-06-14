@@ -12,12 +12,6 @@ public class BoardCommentDto {
     private String bContent;
     private String cContent;
 
-    public BoardCommentDto(String s, String s1) {
-    }
-
-    public BoardCommentDto() {
-
-    }
 
     public BoardCommentDto(String title, String bContent, String cContent) {
         this.title = title;
