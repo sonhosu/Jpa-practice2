@@ -70,7 +70,15 @@ public class CommentService {
         findComment.setContent(commentDto.getContent());
         Comment comment = commentRepository.save(findComment);
 
-        return  new CommentDto(comment);
+        CommentDto OutCommentDto = new CommentDto();
+
+        OutCommentDto.setId(comment.getId());
+        OutCommentDto.setContent(comment.getContent());
+        OutCommentDto.setBoard(comment.getBoard());
+        OutCommentDto.setWriteTime(comment.getDateTime());
+        OutCommentDto.setUpdateTime(comment.getUpdateTime());
+
+        return  OutCommentDto;
 
 
     }
