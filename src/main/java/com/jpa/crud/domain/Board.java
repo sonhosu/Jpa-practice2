@@ -48,6 +48,7 @@ public class Board {
         this.username = boardDto.getUsername();
         this.contents = boardDto.getContents();
         this.dateTime = LocalDateTime.now();
+        this.updateTime = boardDto.getUpdateTime();
         this.user = boardDto.getUser();
 
     }
