@@ -8,7 +8,10 @@ import com.jpa.crud.repository.BoardRepository;
 import com.jpa.crud.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,14 +27,18 @@ public class CommentService {
         commentDto.setBoard(board);
 
         // Dto -> Entity
+        Comment entity = commentDto.toEntity();
 
+        Comment comment = commentRepository.save(entity);
 
+        CommentDto commentDto1 = new CommentDto();
+        commentDto1.setId(comment.getId());
+        commentDto1.setBoard(comment.getBoard());
+        commentDto1.setContent(comment.getContent());
+        commentDto1.setWriteTime(comment.getDateTime());
+        commentDto1.setUpdateTime(LocalDateTime.now());
 
-        Comment comment = commentRepository.save(new Comment(commentDto));
-
-
-        //Entity -> Dto
-       return  new CommentDto(comment);
+       return  commentDto1;
 
 
     }
@@ -48,9 +55,11 @@ public class CommentService {
 
     //댓글 전체 조회
 
-    public List<Comment> findAll (){
+    public List<CommentDto> findAll (){
 
-        return commentRepository.findAll();
+        return commentRepository.findAll().stream().
+                map(CommentDto::new)
+                .collect(Collectors.toList());
 
     }
 

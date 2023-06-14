@@ -1,5 +1,6 @@
 package com.jpa.crud.controller;
 
+import com.jpa.crud.domain.Comment;
 import com.jpa.crud.dto.CommentDto;
 import com.jpa.crud.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -47,6 +50,13 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.OK);
 
 
+    }
+
+    @ResponseBody
+    @GetMapping("/api/v1/user/comments")
+    public List<CommentDto> findAll(){
+
+        return commentService.findAll();
     }
 
 

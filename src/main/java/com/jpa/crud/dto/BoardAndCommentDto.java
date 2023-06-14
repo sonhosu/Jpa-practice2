@@ -34,10 +34,4 @@ public class BoardAndCommentDto {
                 .collect(Collectors.toList());
     }
 
-    public BoardAndCommentDto(BoardCommentDto boardCommentDto) {
-        this.contents = boardCommentDto.getBContent();
-        this.title = boardCommentDto.getTitle();
-
-
-    }
 }
