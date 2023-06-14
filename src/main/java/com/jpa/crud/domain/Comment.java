@@ -35,7 +35,7 @@ public class Comment {
     public Comment(CommentDto commentDto){
         this.id = commentDto.getId();
         this.content = commentDto.getContent();
-        this.dateTime = commentDto.getWriteTime();
+        this.dateTime = LocalDateTime.now();
         this.board = commentDto.getBoard();
         this.updateTime = commentDto.getUpdateTime();
     }
