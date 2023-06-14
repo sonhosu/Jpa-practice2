@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,6 +75,7 @@ public class BoardService {
 
         board.setTitle(boardDto.getTitle());
         board.setContents(boardDto.getContents());
+        board.setUpdateTime(LocalDateTime.now());
         Board save = boardRepository.save(board);
 
         BoardDto boardDto1 = new BoardDto();
