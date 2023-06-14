@@ -24,6 +24,7 @@ public interface BoardRepository extends JpaRepository<Board,Long>, CustomBoardR
                          ",b.contents," +
                          " b.date_time," +
                           "b.update_time," +
+                          "b.username, " +
                           "b.user_id , " +
                           "c.content " +
                    "FROM Board b " +

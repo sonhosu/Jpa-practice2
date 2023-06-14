@@ -4,6 +4,7 @@ package com.jpa.crud.controller;
 import com.jpa.crud.domain.Board;
 import com.jpa.crud.dto.BoardAndCommentDto;
 import com.jpa.crud.dto.BoardDto;
+import com.jpa.crud.dto.SearchDto;
 import com.jpa.crud.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -62,21 +63,25 @@ public class BoardController {
     // 수정
     @ResponseBody
     @PostMapping("/api/v1/user/board/update/{boardId}")
-    public Board boardUpdate(@PathVariable Long boardId , @RequestBody BoardDto boardDto){
+    public BoardDto boardUpdate(@PathVariable Long boardId , @RequestBody BoardDto boardDto){
         log.info("BoardDto={}" , boardDto);
 
+        BoardDto update = boardService.update(boardId, boardDto);
 
-        return boardService.update(boardId , boardDto);
+
+        return update;
 
     }
 
     //삭제
     @ResponseBody
     @DeleteMapping("/api/v1/user/board/delete/{boardId}")
-    public void boardDelete(@PathVariable Long boardId){
+    public String boardDelete(@PathVariable Long boardId){
         log.info("boardId={}",boardId);
 
         boardService.delete(boardId);
+
+        return"삭제완료";
 
     }
 
@@ -108,6 +113,16 @@ public class BoardController {
         List<BoardDto> boardList = boardService.findAllBoard();
 
         return boardList;
+    }
+
+    @ResponseBody
+    @GetMapping("/board/search")
+    public List<BoardDto> findSearchBoard(@RequestBody SearchDto searchDto){
+        log.info("searchDto={}",searchDto);
+
+        List<BoardDto> searchBoard = boardService.findSearchBoard(searchDto);
+
+        return searchBoard;
     }
 
 

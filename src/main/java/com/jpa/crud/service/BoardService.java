@@ -3,8 +3,8 @@ package com.jpa.crud.service;
 import com.jpa.crud.domain.Board;
 import com.jpa.crud.dto.BoardAndCommentDto;
 import com.jpa.crud.dto.BoardDto;
+import com.jpa.crud.dto.SearchDto;
 import com.jpa.crud.repository.BoardRepository;
-import com.jpa.crud.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 public class BoardService {
 
     private  final BoardRepository boardRepository;
-    private  final UserRepository userRepository;
     //test121
 
     public BoardDto save(BoardDto  boardDto){
@@ -33,11 +32,13 @@ public class BoardService {
         Board savedBoard = boardRepository.save(board);
 
         BoardDto boardDto1 = new BoardDto();
+
         boardDto1.setId(savedBoard.getId());
         boardDto1.setTitle(savedBoard.getTitle());
         boardDto1.setContents(savedBoard.getContents());
         boardDto1.setUsername(savedBoard.getUsername());
         boardDto1.setDatetime(savedBoard.getDateTime());
+
 
 
         return boardDto1;
@@ -65,14 +66,24 @@ public class BoardService {
     }
 
     //수정
-    public Board update(Long id , BoardDto boardDto) {
+    public BoardDto update(Long id , BoardDto boardDto) {
         Board board = boardRepository.findById(id)
                 .orElseThrow( () -> new IllegalArgumentException("not find board"));
         log.info("findBoard={}",boardDto);
+
         board.setTitle(boardDto.getTitle());
         board.setContents(boardDto.getContents());
+        Board save = boardRepository.save(board);
 
-        return  boardRepository.save(board);
+        BoardDto boardDto1 = new BoardDto();
+        boardDto1.setId(save.getId());
+        boardDto1.setTitle(save.getTitle());
+        boardDto1.setContents(save.getContents());
+        boardDto1.setUsername(save.getUsername());
+        boardDto1.setDatetime(save.getDateTime());
+        boardDto1.setUpdateTime(save.getUpdateTime());
+
+        return boardDto1;
 
     }
 
@@ -89,11 +100,9 @@ public class BoardService {
     public List<BoardAndCommentDto> findBoardComment(){
         log.info("BoardService");
 
-
         List<BoardAndCommentDto> collect = boardRepository.findBoardAndComment().stream()
                 .map(BoardAndCommentDto::new)
                 .collect(Collectors.toList());
-
 
         return collect;
 
@@ -102,7 +111,7 @@ public class BoardService {
 
     // Native 쿼리 사용 test
     public List<BoardAndCommentDto> findBoardComment2(){
-        log.info("BaordService");
+        log.info("BoardService");
 
         //return boardRepository.findBoardComment();
         List<BoardAndCommentDto> collect = boardRepository.findBoardAndComment2().stream()
@@ -121,5 +130,12 @@ public class BoardService {
 
 
         return allBoard;
+    }
+
+    public List<BoardDto> findSearchBoard(SearchDto searchDto){
+
+        List<BoardDto> searchBoard = boardRepository.findSearchBoard(searchDto);
+
+        return searchBoard;
     }
 }
