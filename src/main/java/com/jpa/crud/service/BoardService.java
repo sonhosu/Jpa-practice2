@@ -73,7 +73,7 @@ public class BoardService {
                 .orElseThrow( () -> new IllegalArgumentException("not find board"));
         log.info("findBoard={}",boardDto);
 
-        board.setTitle(boardDto.getTitle());
+        //board.setTitle(boardDto.getTitle());
         board.setContents(boardDto.getContents());
         board.setUpdateTime(LocalDateTime.now());
         Board save = boardRepository.save(board);
@@ -87,6 +87,29 @@ public class BoardService {
         boardDto1.setUpdateTime(save.getUpdateTime());
 
         return boardDto1;
+
+    }
+
+    public BoardDto update2(BoardDto boardDto){
+        Board board = boardRepository.findById(boardDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("not find board"));
+
+        board.setTitle(boardDto.getTitle());
+        board.setContents(boardDto.getContents());
+        board.setUpdateTime(LocalDateTime.now());
+
+        Board save = boardRepository.save(board);
+
+        BoardDto boardDto1 = new BoardDto();
+        boardDto1.setId(save.getId());
+        boardDto1.setTitle(save.getTitle());
+        boardDto1.setContents(save.getContents());
+        boardDto1.setUsername(save.getUsername());
+        boardDto1.setDatetime(save.getDateTime());
+        boardDto1.setUpdateTime(save.getUpdateTime());
+
+        return boardDto1;
+
 
     }
 

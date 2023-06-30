@@ -21,7 +21,7 @@ public class CommentController {
 
     //댓글 생성
 
-    @PostMapping("/api/v1/user/board/{boardId}/comment/write")
+    /*@PostMapping("/api/v1/user/board/{boardId}/comment/write")
     public CommentDto create(@RequestBody CommentDto inCommentDto , @PathVariable Long boardId){
         log.info("commentDto={}" , inCommentDto ,"boardId={}" ,boardId);
 
@@ -29,23 +29,40 @@ public class CommentController {
 
         return commentDto;
 
+    }*/
+
+    @PostMapping("/api/v1/user/comment/write")
+    public CommentDto create(@RequestBody CommentDto inCommentDto ){
+        //log.info("inCommentDto.getBoard().getId()={}" , inCommentDto.getBoard().getId() );
+
+        CommentDto commentDto = commentService.save(inCommentDto,inCommentDto.getBoard().getId());
+
+        return commentDto;
+
     }
 
 
     // 댓글 수정
-    @PutMapping("/api/v1/user/comment/{commentId}/update")
+    /*@PutMapping("/api/v1/user/comment/{commentId}/update")
     public ResponseEntity<CommentDto> update (@RequestBody CommentDto commentDto , @PathVariable Long commentId){
         CommentDto update = commentService.update(commentDto, commentId);
 
         return new ResponseEntity<>(update,HttpStatus.OK);
+    }*/
+
+    @PutMapping("/api/v1/user/comment/update")
+    public ResponseEntity<CommentDto> update (@RequestBody CommentDto commentDto ){
+        CommentDto update = commentService.update(commentDto, commentDto.getId());
+
+        return new ResponseEntity<>(update,HttpStatus.OK);       //qweqweqw
     }
 
 
     // 댓글 삭제
 
-    @DeleteMapping("/api/v1/user/comment/{commentId}/delete")
-    public ResponseEntity<CommentDto> delete (@PathVariable Long commentId , @RequestBody CommentDto commentDto){
-        commentService.delete(commentId);
+    @DeleteMapping("/api/v1/user/comment/delete")
+    public ResponseEntity<CommentDto> delete ( @RequestBody CommentDto commentDto){
+        commentService.delete(commentDto.getId());
 
         return new ResponseEntity<>(HttpStatus.OK);
 

@@ -22,6 +22,13 @@ public class BoardController {
     private final BoardService boardService;
 
     HttpHeaders headers = new HttpHeaders();
+
+
+    @ResponseBody
+    @GetMapping("/test1")
+    public String test1(){
+        return "hello";
+    }
     //글 목록
     @ResponseBody
     @GetMapping("/api/v1/user/boards")
@@ -38,10 +45,10 @@ public class BoardController {
 
     //글 상세1
     @ResponseBody
-    @GetMapping("/api/v1/user/board/detail/{boardId}")
-    public BoardDto boardDetail(@PathVariable Long boardId ){
-        log.info("boardId={}" , boardId);
-        BoardDto findOne = boardService.findOne(boardId);
+    @GetMapping("/api/v1/user/board/detail")
+    public BoardDto boardDetail(@RequestBody RequestDto requestDto){
+        log.info("boardId={}" , requestDto.getId());
+        BoardDto findOne = boardService.findOne(requestDto.getId());
         return  findOne;
 
     }
@@ -60,26 +67,39 @@ public class BoardController {
 
     }
 
-    // 수정
+    // 수정  pathVariable 방식
     @ResponseBody
-    @PostMapping("/api/v1/user/board/update/{boardId}")
-    public BoardDto boardUpdate(@PathVariable Long boardId , @RequestBody BoardDto boardDto){
+    @PutMapping("/api/v1/user/board/update")
+    public BoardDto boardUpdate(@RequestBody BoardDto boardDto){
         log.info("BoardDto={}" , boardDto);
 
-        BoardDto update = boardService.update(boardId, boardDto);
+        BoardDto update = boardService.update(boardDto.getId(), boardDto);
 
 
         return update;
 
     }
 
+    // 수정 none pathVariable 방식
+    @ResponseBody
+    @PostMapping("/api/v2/user/board/update")
+    public BoardDto boardUpdate2(@RequestBody BoardDto boardDto){
+        log.info("Board");
+
+        BoardDto update = boardService.update2(boardDto);
+
+
+        return update;
+    }
+
+
     //삭제
     @ResponseBody
-    @DeleteMapping("/api/v1/user/board/delete/{boardId}")
-    public String boardDelete(@PathVariable Long boardId){
-        log.info("boardId={}",boardId);
+    @DeleteMapping("/api/v1/user/board/delete")
+    public String boardDelete(@RequestBody BoardDto boardDto){
+        log.info("boardDto={}",boardDto);
 
-        boardService.delete(boardId);
+        boardService.delete(boardDto.getId());
 
         return"삭제완료";
 
